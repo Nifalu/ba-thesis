@@ -29,4 +29,17 @@ Software auf Funktionen oder Blocks aufsplitten => überprüfen ob es Probleme i
 
 
 
-## Follow up meeting: DD.MM.YYY
+## Follow up meeting: 21.03.2025
+
+Verschiedene Module in zB. Flugzeug / Zug / Schiff etc kommunizieren mit einander. (GPS, Radio, Weather, Sat_Com, Autopilot, Position modul, Route-Planner, Flight-Controller.
+
+Ich möchte für jedes Modul welches Input von aussen erhält (sensoren, communication) herausfinden, welche Outputs es geben kann. Diese Outputs sind dann wiederum Constraints für andere Module die diesen Output als input haben.
+
+Am Ende werden manuell valide oder verbote states definiert die ein Flugzeug o.Ä. haben darf. zB. Steigwinkel darf nicht grösser sein als 20 Grad. Über die Inputs und Outputs der einzelnen module kann ich nachher prüfen, ob es inputs gibt, die zu einem verbotenen State führen und wenn ja, woher diese falschen inputs kommen und mit welcher wahrscheinlichkeit.
+
+So lässt sich am ende abschätzen, ob zum Beispiel ein faulty gps sensor einen grossen einfluss auf den Flug-controller hat oder ob dort noch so viele andere module faulty sein müssen um am ende tatsächlich den flugzeug status zu verändern.
+
+
+#### TODOs:
+- Zwei Dokumente die meine Arbeit beschreiben. Einmal in kurzform (ca. 5 Sätze) und einmal ausführlicher mit evt. 20 Sätzen.
+
