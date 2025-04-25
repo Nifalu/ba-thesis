@@ -43,3 +43,21 @@ So lässt sich am ende abschätzen, ob zum Beispiel ein faulty gps sensor einen 
 #### TODOs:
 - Zwei Dokumente die meine Arbeit beschreiben. Einmal in kurzform (ca. 5 Sätze) und einmal ausführlicher mit evt. 20 Sätzen.
 
+
+
+## Kick-Off 14.04.2025
+
+Getting used to angr... Kleine binaries erstellen mit simplen branches und mit angr analysieren.
+
+#### Questions:
+- handle multiple inputs??
+
+## Meeting 1: 24.04.2025
+
+Über den CFG von den Ziel states zu den Start States zurück suchen und alle anderen paths zu "avoid" hinzufügen.
+Anschliessend bei der SE von Start zu Ziel die Avoid paths jeweils skippen.
+
+Verschiedene andere Input/Output methoden testen => solche die auf buffer schreiben, solche die ein pointer speichern oder direkt auf den stack gehen => entsprechend Hooks definieren.
+
+Wie funktioniert es mit Outputs, die von mehreren Inputs abhängig sind?
+
