@@ -63,9 +63,6 @@ Wie funktioniert es mit Outputs, die von mehreren Inputs abhängig sind?
 
 #### Findings and Questions:
 - explore() avoided schon automatisch unmögliche paths. Allerdings muss man einen CFGEmulated übergeben der anscheinend deutlich länger braucht zum erstellen als ein CFGFast. Wie lange dauert das?
-- input x bedeutet nicht das auch x ausgegeben wird. Bsp: input sind GPS daten, output ist Geschwindigkeit. irgendwo im code `speed = calculate(gps)`. 
 
-- the possible inputs of a given output might also include values that lead to (integer) overflows if the resulting value fits the constraint... (took me 6h to debug lol)
-    - should we detect and report such overflows or just run with it?
-
+- 
 
