@@ -45,17 +45,27 @@ So lässt sich am ende abschätzen, ob zum Beispiel ein faulty gps sensor einen 
 
 
 
-## Kick-Off: 14.04.2025
+## Kick-Off 14.04.2025
 
-Angr selber testen: -> Program mti zwei abzweigungen schreiben und selber kompilieren.
+Getting used to angr... Kleine binaries erstellen mit simplen branches und mit angr analysieren.
 
-Inputs finden => wo wird vom netzwerk gelesen, wo wird ein file / input gelesen und wo werden die daten wieder rausgegeben. Assembly analysieren um den interessanten pfad zu finden. (Angr. Explore slide 81-82)
+#### Questions:
+- handle multiple inputs??
 
-Sinnvoller start Zugang: Wenn ich bei random function anfange sind ggf register nicht ready. => Zuerst weg zum interessanten entry point suchen, State Speichern. Dann mit diesem state von dort weitermachen.
+## Meeting 1: 24.04.2025
 
-mich interessiert vorallem recv() und send() 
+Über den CFG von den Ziel states zu den Start States zurück suchen und alle anderen paths zu "avoid" hinzufügen.
+Anschliessend bei der SE von Start zu Ziel die Avoid paths jeweils skippen.
 
-parallel noch gucken ob instruktionspointer unconstrained ist. => Sicherheitslücken direkt nebenbei entdecken.
+Verschiedene andere Input/Output methoden testen => solche die auf buffer schreiben, solche die ein pointer speichern oder direkt auf den stack gehen => entsprechend Hooks definieren.
 
+Wie funktioniert es mit Outputs, die von mehreren Inputs abhängig sind?
+
+#### Findings and Questions:
+- explore() avoided schon automatisch unmögliche paths. Allerdings muss man einen CFGEmulated übergeben der anscheinend deutlich länger braucht zum erstellen als ein CFGFast. Wie lange dauert das?
+- input x bedeutet nicht das auch x ausgegeben wird. Bsp: input sind GPS daten, output ist Geschwindigkeit. irgendwo im code `speed = calculate(gps)`. 
+
+- the possible inputs of a given output might also include values that lead to (integer) overflows if the resulting value fits the constraint... (took me 6h to debug lol)
+    - should we detect and report such overflows or just run with it?
 
 
