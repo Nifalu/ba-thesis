@@ -1,6 +1,7 @@
-#import "@preview/dmi-basilea-thesis:0.1.0": *
+#import "@preview/dmi-basilea-thesis:0.1.1": *
 // or for local testing:
 // #import "../src/main.typ": *  // This is for local testing
+
 
 #show: thesis.with(
   colored: true,
@@ -17,12 +18,17 @@
   thesis-type: "Bachelor Thesis",
   date: datetime.today(),
   language: "en",
-  body-font: "Libre Baskerville",
+  body-font: "Crimson Pro",
+  body-size: 11pt,
   sans-font: "Open Sans",
   mono-font: "Ubuntu Mono",
+  mono-size: 10pt,
   draft: true,
 
   abstract: [
+    #todo-revise("Add date to url in footnote")
+    #todo-revise("Fix lineheight and superscript size")
+    #todo-revise("Fix font and spacing of listing description")
     #todo-missing("Write abstract")
   ],
 

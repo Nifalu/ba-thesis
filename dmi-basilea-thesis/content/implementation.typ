@@ -1,177 +1,104 @@
-#import "@preview/dmi-basilea-thesis:0.1.0": *
-
-// Or for local development
-// #import "../../src/main.typ": *
-
+#import "@preview/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, algorithm
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge, shapes
 = Implementation <implementation>
 
-== Text Formatting
+#todo-missing("How do we name the tool??")
 
-=== Basic Formatting
-You can use *bold text* for emphasis, _italic text_ for titles or foreign words, and `inline code` for technical terms. The template also supports #smallcaps[small capitals] for certain stylistic choices.
+This chapter focuses on the practical implementation of the previously introduced approach to analyse a Multi Component System. We developed a tool called *MCSAnalyser* #todo-missing("Insert Github link") which uses the binary analysis platform #link("https://angr.io/")[*angr*] for the analysis part as well as a self-written visualisation library #link("https://github.com/Nifalu/schnauzer")[*Schnauzer*]#footnote("https://github.com/Nifalu/schnauzer") to display the resulting graph in a interactive way. *MCSAnalyser* is public, open-source and with expandablity in mind. Informations for developers who want to contribute can be found in the README.
 
-Footnotes are created using the `#footnote` function#footnote[This is an example footnote. Footnotes are automatically numbered and appear at the bottom of the page.]. You can add them anywhere in your text#footnote[Multiple footnotes on the same page are handled automatically.].
+#todo-missing("Write README (or wiki??) - Also fix mono font size D:")
 
-For URLs, you have several options:
-- Direct URL: https://www.unibas.ch
-- Linked text: #link("https://www.unibas.ch")[University of Basel]
+The tool was developed with minimal human input in mind to reduce the chance of misleading outputs caused by usage-errors. Correspondingly simple is the usage:
 
-=== Lists and Enumerations
-Bullet points are created naturally:
-- First item
-- Second item with sub-items:
-  - Sub-item A
-  - Sub-item B
-- Third item
-
-Numbered lists work similarly:
-1. First step
-2. Second step
-3. Final step
-
-== Code Listings
-
-Code blocks are beautifully formatted with syntax highlighting:
-
-```python
-def fibonacci(n):
-    """Calculate the nth Fibonacci number."""
-    if n <= 1:
-        return n
-    return fibonacci(n-1) + fibonacci(n-2)
-```
-
-For inline code, simply use backticks: `let x = 42`.
-
-== Mathematical Formulas
-
-Typst excels at mathematical typesetting. Here's the famous Euler's identity:
-
-$ e^(i pi) + 1 = 0 $
-
-More complex equations can be displayed prominently:
-
-$ integral_0^infinity e^(-x^2) d x = sqrt(pi)/2 $
-
-You can also create aligned equations:
-
-$ sum_(k=1)^n k &= 1 + 2 + 3 + ... + n \
-                &= (n(n+1))/2 $
-
-== Figures and Tables
-Figures can be inserted with captions and labels for cross-referencing:
-
-#figure(
-  image("../img/typst.png", width:80%),
-  caption: [Example figure showing the template's figure environment]
-) <fig:example>
-
-As shown in @fig:example, figures are automatically numbered and can be referenced throughout the document.
-
-Tables are equally straightforward:
-
-#figure(
-  table(
-    columns: 3,
-    align: (left, center, right),
-    [*Language*], [*Type System*], [*Performance*],
-    [Typst], [Static], [Fast],
-    [LaTeX], [Macro-based], [Slow],
-    [Markdown], [None], [Very Fast],
-  ),
-  caption: [Comparison of different markup languages]
-) <tab:comparison>
-
-@tab:comparison demonstrates the three-column table format with different alignments.
-
-== Custom Environments
-
-The template provides several custom environments for academic writing:
-
-#definition(title: "Definition 1")[
-  A *markup language* is a text-encoding system consisting of a set of symbols inserted in a text document to control its structure, formatting, or the relationship between its parts.
-]
-
-#theorem(title: "Theorem 1")[
-  For any typesetting system $T$, if $T$ is both powerful and user-friendly, then $T$ will eventually replace less user-friendly alternatives.
-]
-
-== Multi-Column Layout
-
-#columns(2)[
-  Sometimes you need to present content in multiple columns. This is particularly useful for:
-
-  - Comparing two approaches
-  - Presenting definitions side by side
-  - Creating compact layouts for listings
-
-  #colbreak()
-
-  The column break command `#colbreak()` allows you to manually control where the column break occurs, giving you precise control over the layout.
-]
-
-== Algorithms
-
-#algorithm(
-  caption: [Binary search algorithm]
-)[
-```
-function binarySearch(arr, target):
-    left = 0
-    right = length(arr) - 1
-
-    while left <= right:
-        mid = (left + right) / 2
-        if arr[mid] == target:
-            return mid
-        else if arr[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
-
-    return -1
-```
-]
-
-== Draft Features
-
-#context {
-  if thesis-draft-state.get() [
-    The template includes helpful TODO markers for draft versions:
-
-    #todo[Add more examples here]
-    #todo-missing[Include performance benchmarks]
-    #todo-check[Verify this equation]
-    #todo-revise[Improve this explanation]
-    #todo-citation[Add proper reference]
-    #todo-language[Check grammar]
-    #todo-question[Is this the best approach?]
-    #todo-note[Remember to update this section]
-  ] else [
-    TODO markers are only visible in draft mode. Set `draft: false` in your document configuration to hide them in the final version.
+1. Prepare a *`config.json`* that contains information on which input and output functions to track, the directory containing the component binaries as well as the individual components with some optional metadata for visualisation purposes.
+```json
+{
+  "var_length": 64,
+  "input_hooks": ["scanf"],
+  "output_hooks": ["printf"],
+  "components_dir": "./bin/cesna",
+  "components": [
+    {
+      "name": "Speed Sensor",
+      "filename": "c1_speed_sensor",
+      "description": "Produces speed readings"
+    }
   ]
 }
+```
 
-== Cross-References
+#todo-missing("Make name and description optional in the code")
 
-The template supports automatic cross-referencing for all numbered elements. You can reference:
-- Chapters: @methodology
-- Sections: @background
-- Figures: @fig:example
-- Tables: @tab:comparison
-- Equations: $ F = m a $ <eq:newton>
-- Custom labels: @eq:newton
+2. Run the *MCS Analyser*: `python main.py --config <config.json>`
+3. View the resulting graph on `http://localhost:8080`
 
-== Highlighting
+#todo-missing("Those descriptions should match the documentation comments and the README")
+== Project Structure:
+- *coordinator.py* coordinates the entire analysis.
+- *can_simulation* encapsulates logic to simulate a canbus.
+- *mcsanalyser.py* holds the main analysis logic
+- *input* module holds logic to generate and track symbolic input
+- *output* module holds logic to parse output.
 
-Use the #important[important] function to highlight crucial information. In colored mode, this appears as highlighted text; in non-colored mode, it becomes italicized.
+#todo-missing("Organize the code better")
 
-== Page Layout Features
+#figure(
+  supplement: [Figure],
+  pad(scale(diagram(
+    node-stroke: 1pt,
+    edge((-1,1), "r", "->", label: "main", label-pos: 0.2),
+    node((0,1), [Coordinator]),
+    edge("d", "-|>"),
+    edge("r", "<|-|>"),
+    node((1,1), [MCSAnalyser]),
+    edge("u", "<|-|>"),
+    edge("r", "<|-|>"),
+    edge("d", "<|-|>"),
+    edge("dl", "<|-|>"),
+    node((0,2), [canbus]),
+    node((1,0), [InputHookRegistry]),
+    node((2,1), [InputTracker]),
+    node((1,2), [OutputChecker]),
+    edge("r", "<|-|>"),
+    node((2,2), [OutputParser]),
+  ),
+  95%
+  ),
+  10pt,
+  ),
+  caption: "High level overview of the MCS Analyser"
+)
 
-The template automatically handles:
-- Chapter pages without headers
-- Consistent margins and spacing
-- Proper page numbering
-- Language-specific formatting (English/German)
+== How it works:
+=== The Coordinator
+The `Coordinator` essentially guides the analysis through the three phases described in @methodology.
 
-All these features work together to create a professional, consistent document that meets academic standards while being easy to write and maintain.
+In a first phase the coordinator reads the config file and initialises the `canbus`. Each component specified in the config is analysed by the `MCSAnalyser` to retrieve basic information about the system. (Phase I: @phase1)
+
+During this analysis the following information is stored in the `components` within the `canbus`:
+- The maximum number of inputs a component will ever read.
+- The message types a component will accept.
+- The message types a component will produce.
+
+It follows the second phase:
+The coordinator marks all components that subscribe to no message id as "analysed". It then loops through all components until everything is analysed. The `_can_analyse()` function checks if enough messages of the subscribed types of a component are available in the buffer. If so, the component can be analysed. Else, another component has to produce the missing message types first.
+
+```python
+def _can_analyse(cls, c, bus) -> bool:
+    if c.max_expected_inputs // 2 > bus.number_of_msgs_of_types(c.subscriptions):
+        return False
+    return True
+```
+#todo-missing("Ensure this code is still valid.")
+
+=== The MCSAnalyser
+#todo-missing("Explain how an analysis of a single component works")
+
+==== Input generation
+#todo-missing("How an unconstrained bitvector is created or how input combinations are generated and passed in as input")
+
+==== Output parsing
+#todo-missing("How the correct variable is retrieved from the output function and how it is linked to its input.")
+
+=== Visualisation
+#todo-missing("How we enrich the graph already used by angr and pass it to schnauzer")
