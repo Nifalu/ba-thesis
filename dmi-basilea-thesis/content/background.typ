@@ -6,9 +6,10 @@
 This chapter provides the foundation to our work. It introduces the necessary concepts and tools used in the following chapters.
 
 == Multi Component System <mcs>
+
 A *Component* is an autonomous unit within a larger system. It encapsulates specific functionality and communicates with other components through well-defined interfaces.
 
-A *Multi Component System (MCS)* consists of a set of Components that collaborate in order to reach a greater goal.
+A *Multi Component System (MCS)* is a set of individual components work together to achieve a greater goal. The components are all part of a single structural unit which differentiates it from distributed systems which may also include systems where components are geographically separated.
 
 A #link("https://en.wikipedia.org/wiki/CAN_bus")[*CAN bus (Controller Area Network Bus)*]#footnote("https://en.wikipedia.org/wiki/CAN_bus") is a message-oriented communication protocol and physical network widely used in the automotive and aviation industry as well as in industrial automation. Some key properties of a CAN bus are:
 - A *Multi-Master Architecture* allowing any component to communicate if the bus is idle.

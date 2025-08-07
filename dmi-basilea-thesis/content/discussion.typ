@@ -42,7 +42,7 @@ A potential extended analysis could look like this:
   caption: "Sketch of a possible extension of the MCS Analyser"
 )
 
-== Technical limitations
+== Technical limitations <technical-limitations>
 
 *Path explosion* is a common problem in symbolic execution. Usually the binaries for simple components like sensors or actuators are rather small and therefore the number of paths is manageable. This however is a simple excuse and *MCS Analyser* is not immune to this problem. During the exploration of the binary from the entry point to an output function, *MCS Analyser* uses an CFGEmulated in order to avoid paths that do not lead to an output function. Essentially it just traverses the graph from input to output and ignores all other paths. This dramatically improves the performance of the analysis as depending on the number of possible inputs, a single binary might be analysed many times. But, in order to get the CFGEmulated, Angr has to symbolically execute the entire binary up front. This is only done once per binary and then cached, but it will inevitably lead to path explosion issues if the binary is too complex.
 
@@ -50,3 +50,8 @@ A potential extended analysis could look like this:
 
 *Compiler options* have a significant impact on the analysis. In this demonstration all binaries are compiled with the `-O0` option which disables all optimisations which makes it easier to understand the results of the analysis. The flag `-g` is used to include debug information which for example allows *MCS Analyser* to retrieve the variable names for the message ids. This is not strictly necessary for the analysis to work but it makes the visualisation much more readable.
 
+*Protocol violation:* The *MCS Analyser* assumes that the components communicate according to a well-defined protocol. If this is not the case, the analyser throws an error or warning when trying to parse an irregular message. However if a component sends or receives a message in a way that is not expected by the protocol, the analyser will not simulate this scenario and therefore not detect such anomalies.
+
+*Timings and time based attacks:* In a real system, messages are not stored on the bus. If necessary, the individual components have buffers to store incoming messages until they are processed. Usually sophisticated priority mechanisms like CSMA/CD+AMP are used to avoid collisions and ensure that high priority messages are processed first. The *MCS Analyser* does not support such mechanisms and therefore does not detect anything related to message timings or priorities.
+
+#todo-missing("Add source to CSMA/CD+AMP")
