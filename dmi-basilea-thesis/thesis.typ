@@ -40,7 +40,7 @@
     include "content/introduction.typ",
     include "content/background.typ",
     include "content/methodology.typ",
-    include "content/implementation.typ",
+    include "content/implementation/implementation.typ",
     include "content/evaluation.typ",
     include "content/discussion.typ",
     include "content/conclusion.typ",
@@ -55,4 +55,3 @@
 
   bibliography-content: bibliography("references.bib", style: "ieee", title: none),
 )
-
