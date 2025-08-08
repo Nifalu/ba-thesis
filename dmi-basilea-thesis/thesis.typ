@@ -5,7 +5,7 @@
 
 #show: thesis.with(
   colored: true,
-  title: "Drawing Attack Graphs for Multi-Component Systems",
+  title: [Simulate CAN bus \ communication of \ Multi Component Systems],
   author: "Nico Bachmann",
   email: "nico@nifalu.ch",
   immatriculation: "2020-123-456",
@@ -26,10 +26,11 @@
   draft: true,
 
   abstract: [
-    #todo-revise("Add date to url in footnote")
-    #todo-revise("Fix lineheight and superscript size")
+    #todo-revise("Add visting date to urls in footnotes")
     #todo-revise("Fix font and spacing of listing description")
     #todo-missing("Write abstract")
+    #todo-missing("Add related work")
+    #todo-missing("Do we add things to the appendix? What could be there?")
   ],
 
   acknowledgments: [

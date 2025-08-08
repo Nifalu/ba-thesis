@@ -3,11 +3,11 @@
 
 = Evaluation <evaluation>
 
-To evaluate the usefulness of MCS Analyser, we conducted an interview with an expert in the field. We selected this approach because user testing is difficult since the tool requires an in-depth understanding of symbolic execution and binary analysis, as well as a great deal of additional explanation. Benchmarks are also not suitable, as there is nothing to compare it with.
+To evaluate the usefulness of the MCS Analyser, we interviewed an expert in the field. We selected this approach because user testing is difficult, given that the tool requires an in-depth understanding of symbolic execution and binary analysis, as well as considerable additional explanation. Benchmarks are also not suitable, as there is nothing with which to compare it.
 
-The expert in question is Mischa Jahn, who works in cybersecurity at Airbus Defence and Space, a subsidiary of Airbus. He has a background in applied mathematics, AI, and optimisation. He is currently working on the EU Horizon project Albatros, which has been running since 2022 with the goal of maintaining a high level of safety and resilience in aviation.
+The expert in question is Dr Mischa Jahn, who works in cybersecurity at Airbus Defence and Space, a subsidiary of Airbus. He has a background in applied mathematics, AI, and optimisation. He is currently working on the EU Horizon project Albatros, which has been running since 2022 with the goal of maintaining a high level of safety and resilience in aviation.
 
-== Interview with Mischa Jahn
+== Interview with Dr Mischa Jahn
 
 *What are the current challenges in terms of safety and security in aviation?*
 

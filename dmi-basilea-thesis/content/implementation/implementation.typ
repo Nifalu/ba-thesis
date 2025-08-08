@@ -2,7 +2,7 @@
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge, shapes
 = Implementation <implementation>
 
-This chapter focuses on the practical implementation of the previously introduced approach to analyse a Multi Component System. We developed a tool called *MCS Analyser* #todo-missing("Insert Github link") which uses the binary analysis platform #link("https://angr.io/")[*angr*] for the analysis part as well as a self-written visualisation library #link("https://github.com/Nifalu/schnauzer")[*Schnauzer*]#footnote("https://github.com/Nifalu/schnauzer") to display the resulting graph in a interactive way. *MCS Analyser* is public, open-source and with expandablity in mind. Information for developers who want to contribute can be found in the `README`.
+This chapter focuses on the practical implementation of the approach to analysing a Multi Component System that was introduced previously. We have developed a tool called *MCS Analyser*, #todo-missing("Insert Github link") which uses the binary analysis platform #link("https://angr.io/")[*angr*] for the analysis part, as well as a self-written visualisation library #link("https://github.com/Nifalu/schnauzer")[*schnauzer*]#footnote("https://github.com/Nifalu/schnauzer") to display the resulting graph interactively. *MCS Analyser* is public and open-source, and has been designed with expandablity in mind. Information for developers who want to contribute can be found in the `README`.
 
 #todo-missing("Write and link README")
 

@@ -1,19 +1,20 @@
 #import "@preview/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, algorithm
 
-=== can_simulator Package <can_simulator>
-The `can_simulator` package contains functionality to simulate and model CAN bus communication. It differs from real Controller Area Networks in that messages remain in the bus indefinitely. Read more about the effects of this in @technical-limitations
+=== The can_simulator Package <can_simulator>
+This package contains the functionality required to simulate and model CAN bus communication. Unlike real Controller Area Networks, messages remain on the bus indefinitely. Read more about the effects of this in @technical-limitations
 
 ==== CANBus
 #todo-missing("level 4 headings need to be smaller than levle 3 headings lol")
-The `CANBus` core of the `can_simulator` package and represents the simulated CAN bus. During initialisation it reads the configuration file, prepares the components extracts the variable names for the message ids in order to display more readable names later.
 
-Its main function is the `write()` function which is used to write messages to the bus. It takes the `produced_msg`, the new message that should be written to the bus, and a list of `consumed_msgs`, the messages that were used to produce the new message, as parameters. It then performs a series of steps, updating various flags and lists and eventually adds the message to the bus.
+The *CANBus* is the core of the *can_simulator* package and represents the simulated CAN bus. During initialisation, it reads the configuration file and prepares the components, extracting the variable names for the message IDs to make them more readable later on.
+
+The main function is the `write()` function, which is used to write messages to the bus. It takes a `produced_msg`, a new message to be written to the bus, and a list of `consumed_msgs`, the messages used to produce the new message, as parameters. It then performs a series of steps, updating various flags and lists, before eventually adding the produced message to the bus.
 
 1. Throw a warning and return if the message type of the produced message is symbolic. Messages of any kind must always have a concrete type.
-2. Check if the produced message is already in the bus and add it if not the case. Since each component is analysed multiple times, there is a high chance of duplicate messages which we dont need to add again.
-3. Create a new `production` object to store the origins of the produced message, needed for message tracing later. Even though we do not want to display the same message twice in the graph, this same message might be produced by different inputs. Therefore we still need to ttrack where the message originated from.
-4. If it is a new message, (#ie not already in the bus), we update a list keeping track of how many messages of each type are currently in the bus. This is used to determine if a component can be analysed or not. We also need to check if any previously analysed component can consume this message and if so, set its `is_analysed` flag to `False`.
-5. Finally we update the graph, drawing edges from the sources of the consumed messages to the source of the produced message, #ie this component.
+2. Check if the produced message is already on the bus, adding it if it is not. Since each component is analysed multiple times, there is a high chance of duplicate messages that can be safely discarded.
+3. Create a new `production` object to store the origin of the produced message for later tracing. While the graph should be free of identical messages (edges) to improve readability, information about the message's origin is still of interest.
+4. If the message is new (#ie. not already in the bus), update the list that keeps track of how many messages of each type are currently in the bus. This list is used to determine whether a component can be analysed. Also check if any previously analysed components can consume this message. If so, set the `is_analysed` flag to `False`.
+5. Finally, update the graph by drawing edges from the sources of the consumed messages to the source of the produced message (#ie this component).
 
 #algorithm(
   ```python
@@ -51,10 +52,10 @@ Its main function is the `write()` function which is used to write messages to t
     def update_graph(target, consumed_msgs):
       for msg in consumed_msgs:
         consumed_msg_id = buffer.get_id(msg)
-        message_data = {...} # data to be displayed in the graph
+        message_data = {...} # metadata to be displayed in the graph
         MCSGraph.add_message_edge(source, target, message_data)
 
-    ... #various helper methods
+    ... # various helper methods
 
   ```,
   caption: [Simplified view of the `CANBus` class]

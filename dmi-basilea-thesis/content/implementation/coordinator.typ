@@ -2,15 +2,15 @@
 
 === The Coordinator
 
-The `Coordinator` is the entry point of the *MCS Analyser*. Before it comes only `main.py` which is responsible for parsing command line arguments and starting the coordinator.
+The `Coordinator` is the entry point of the *MCS Analyser*. Before that, there is only `main.py`, which is responsible for parsing command line arguments and starting the coordinator.
 
-It is responsible for the overall flow of the analysis and does that in the three phases discussed earlier.
+The `Coordinator` is responsible for the overall flow of the analysis, which takes place in three phases, as discussed earlier.
 
-- Phase I: Use the `can_simulator` to initialise the CAN bus and prepare the components for analysis. This includes an initial unconstrained run but we will cover that in more detail in @can_simulator
+- *Phase I*: Use the `can_simulator` to initialise the CAN bus and analyse all components with unconstrained inputs in order to retrieve information. (See @phase1)
 
-- Phase II: Analyse the components using the `ComponentAnalyser`, ensuring that all required messages are available before starting an analysis.
+- *Phase II*: Analyse the components using the `ComponentAnalyser`, ensuring that all required messages are available before starting the analysis.
 
-- Phase III: Enrich the graph initially built by the `can_simulator` with information necessary for the visualisation and display it using the `schnauzer` library.
+- *Phase III*: Use the `schnauzer` library to enrich the graph initially built by the `can_simulator` with information necessary for the visualisation and display it.
 
 #algorithm(
   ```python
