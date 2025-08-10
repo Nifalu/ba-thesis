@@ -2,7 +2,7 @@
 
 === common package <common>
 
-The common package contains a variety of utilities and functionality that is used throughout the *MCS Analyser*. The most important ones are:
+The common package contains a variety of utilities and functionality that is used throughout the _MCS Analyser_. The most important ones are:
 
 ==== MCSGraph
 This is a singleton wrapper around the `NetworkX.MultiDiGraph` class, which makes it accessible from anywhere in the project and integrates the graph visualisation library `schnauzer`.

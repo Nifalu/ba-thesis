@@ -3,7 +3,7 @@
 
 == Project Structure:
 
-The *MCS Analyser* is structured in a modular way and consists of 5 main parts:
+The _MCS Analyser_ is structured in a modular way and consists of 5 main parts:
 
 #figure(
   supplement: [Figure],
@@ -46,4 +46,4 @@ The *MCS Analyser* is structured in a modular way and consists of 5 main parts:
   caption: "Project structure of the MCS Analyser"
 )
 
-The `Coordinator` is the brain of the *MCS Analyser* and orchestrates the analysis of the individual components. It primarily interacts with the `can_simulator` and the `ComponentAnalyser`. The former is a Python package that contains all the required functionality to simulate a CAN bus#footnote("In python terminology a package is a directory while a module is a single file."). The `ComponentAnalyser` is responsible for analysing a single component. It uses he functionality of the `io` module to compute the input and output values, which it then loads or stores via the `can_simulator`. The `common` module contains additonal utilities used within the project. Let's take a closer look at how the *MCS Analyser* works in detail.
+The `Coordinator` is the brain of the _MCS Analyser_ and orchestrates the analysis of the individual components. It primarily interacts with the `can_simulator` and the `ComponentAnalyser`. The former is a Python package that contains all the required functionality to simulate a CAN bus#footnote("In python terminology a package is a directory while a module is a single file."). The `ComponentAnalyser` is responsible for analysing a single component. It uses he functionality of the `io` module to compute the input and output values, which it then loads or stores via the `can_simulator`. The `common` module contains additonal utilities used within the project. Let's take a closer look at how the _MCS Analyser_ works in detail.

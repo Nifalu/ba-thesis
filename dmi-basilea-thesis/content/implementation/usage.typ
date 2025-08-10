@@ -7,9 +7,9 @@ The tool was developed to minimise human input and reduce the likelihood of misl
 
 *Prerequisites:* Clone the repository and install. Make sure you have a working Python environment with the packages listed in `requirements.txt` installed. The tool was developed and tested with Python 3.13.
 
-*Steps to run the MCS Analyser:*
+*Steps to run the _MCS Analyser_:*
 
-1. Run the *MCS Analyser* with the following command:
+1. Run the _MCS Analyser_ with the following command:
 ```bash
 python main.py --config <config.json>
 ```

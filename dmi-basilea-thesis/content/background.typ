@@ -11,13 +11,10 @@ A *Component* is an autonomous unit within a larger system. It encapsulates spec
 
 A *Multi-Component System (MCS)* is a set of components that work together to achieve a greater goal. The components are all part of a single structural unit, which differentiates MCSs from distributed systems, which may also include systems where components are geographically separated.
 
-A #link("https://en.wikipedia.org/wiki/CAN_bus")[*CAN bus (Controller Area Network Bus)*]#footnote("https://en.wikipedia.org/wiki/CAN_bus") is a message-oriented communication protocol and physical network that is widely used in the automotive and aviation industries, as well as in industrial automation. Some key properties of a CAN bus are:
-- A *Multi-Master Architecture*, allowing anyone to communicate at any time without a central control instance. More on this in @discussion
-- A #link("https://en.wikipedia.org/wiki/Message_passing")[*Message-Oriented Protocol*]#footnote("https://en.wikipedia.org/wiki/Message_passing"), where data is identified by message IDs rather than a source or destination addresses. This implies that everyone receives all messages.
-
-#figure(
+A *CAN bus (Controller Area Network Bus)* @canclassic @canfd @canwiki is a message-oriented communication protocol and physical network that is widely used in the automotive and aviation industries, as well as in industrial automation.
+#pad(figure(
   supplement: [Figure],
-  pad(scale(diagram(
+  scale(diagram(
     node-stroke: 1pt,
     node((0,0), [Engine RPM]),
     edge("d", "-"),
@@ -29,10 +26,11 @@ A #link("https://en.wikipedia.org/wiki/CAN_bus")[*CAN bus (Controller Area Netwo
     ),
   95%
   ),
-  10pt,
-  ),
   caption: "Architecture of a Controller Area Network Bus"
+),
+10pt,
 )
+There is no central control unit, messages are identified by an ID which also determines its priority on the bus.
 
 == Symbolic Execution
 *Symbolic execution* is an analysis technique in which a program is executed#footnote([technically it is simulated, but it is still called symbolic _execution_]) with *symbolic variables (symvar)* rather than concrete data. If the program flow branches on a certain condition, *constraints* are placed on the affected symbolic variables and both options are taken.

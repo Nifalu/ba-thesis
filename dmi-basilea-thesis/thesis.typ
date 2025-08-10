@@ -8,7 +8,7 @@
   title: [Simulate CAN bus \ communication of \ Multi Component Systems],
   author: "Nico Bachmann",
   email: "nico@nifalu.ch",
-  immatriculation: "2020-123-456",
+  immatriculation: "2021-050-059",
   supervisor: "Prof. Dr. Christopher Scherb",
   examiner: "Dr. Marco Vogt",
   faculty: "Faculty of Science, University of Basel",
@@ -26,7 +26,7 @@
   draft: true,
 
   abstract: [
-    #todo-revise("Add visting date to urls in footnotes")
+    #todo-missing("How can we make internal cross references use 'chapter' instead of section?")
     #todo-revise("Fix font and spacing of listing description")
     #todo-missing("Write abstract")
     #todo-missing("Add related work")

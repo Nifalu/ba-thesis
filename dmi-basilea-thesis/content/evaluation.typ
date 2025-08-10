@@ -3,7 +3,7 @@
 
 = Evaluation <evaluation>
 
-To evaluate the usefulness of the MCS Analyser, we interviewed an expert in the field. We selected this approach because user testing is difficult, given that the tool requires an in-depth understanding of symbolic execution and binary analysis, as well as considerable additional explanation. Benchmarks are also not suitable, as there is nothing with which to compare it.
+To evaluate the usefulness of the _MCS Analyser_, we interviewed an expert in the field. We selected this approach because user testing is difficult, given that the tool requires an in-depth understanding of symbolic execution and binary analysis, as well as considerable additional explanation. Benchmarks are also not suitable, as there is nothing with which to compare it.
 
 The expert in question is Dr Mischa Jahn, who works in cybersecurity at Airbus Defence and Space, a subsidiary of Airbus. He has a background in applied mathematics, AI, and optimisation. He is currently working on the EU Horizon project Albatros, which has been running since 2022 with the goal of maintaining a high level of safety and resilience in aviation.
 
@@ -21,7 +21,7 @@ Since adding security measures to a finished design is not only more costly, but
 
 Among other things, I am currently looking at the intersection of security and safety and more specifically at the impact of cybersecurity incidents and threats on the safety of systems such as aircrafts. For this, I am developing a flexible method to evaluate different designs and system configurations and compute the likelihood of pre-defined threat scenarios, impacting the safety of a system, to materialize under different conditions. The goal is to identify suboptimal designs as early as possible and support engineers in their work by providing rapid feedback on design decisions in terms of safety and security. For example, the tool can be used to determine how cyber-attacks, component failures or combinations of both would propagate through a system and how this would impact its safety state. In addition, the tool enables the quantification of possible root-causes and attack vectors and/or attack paths so that additional redundancies or security measures can be added if needed.
 
-*How would you rate the usefulness of the MCS Analyser, and what are its strengths and weaknesses?*
+*How would you rate the usefulness of the _MCS Analyser_, and what are its strengths and weaknesses?*
 
 The ability to automatically obtain information and a visualization of which systems communicate to each other and analyze the data flow in a complex system is incredibly useful. I can imagine scenarios where many people are working on the design of a system or related controller software, either during the initial development or at a later stage as a new version, where either the documentation is outdated and therefore misses some communication paths or where mistakes happen and such paths are created through an oversight. Knowing how the system is actually communicating by considering all possible paths and comparing this to how it is intended to communicate, can be extremely useful.
 

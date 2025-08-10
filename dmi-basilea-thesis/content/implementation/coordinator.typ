@@ -2,7 +2,7 @@
 
 === The Coordinator
 
-The `Coordinator` is the entry point of the *MCS Analyser*. Before that, there is only `main.py`, which is responsible for parsing command line arguments and starting the coordinator.
+The `Coordinator` is the entry point of the _MCS Analyser_. Before that, there is only `main.py`, which is responsible for parsing command line arguments and starting the coordinator.
 
 The `Coordinator` is responsible for the overall flow of the analysis, which takes place in three phases, as discussed earlier.
 

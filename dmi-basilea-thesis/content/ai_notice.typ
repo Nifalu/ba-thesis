@@ -6,7 +6,7 @@ This thesis was written with the help of DeepL from DeepL SE in order to improve
 
 *Development assistance*
 
-The tool *MCS Analyser* tool was developed with the assistance of Claude Opus 4 and 4.1 from Anthropic. It was used to:
+The tool _MCS Analyser_ tool was developed with the assistance of Claude Opus 4 and 4.1 from Anthropic. It was used to:
 - Explain complex concepts in binary analysis in a more understandable or simplified way.
 - Help with the structure and organisation of the codebase.
 - Generate small examples and snippets to demonstrate how things could be implemented.
