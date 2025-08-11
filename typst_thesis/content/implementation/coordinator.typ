@@ -1,4 +1,4 @@
-#import "@preview/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, algorithm
+#import "@local/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, listing
 
 === The Coordinator
 
@@ -12,7 +12,7 @@ The `Coordinator` is responsible for the overall flow of the analysis, which tak
 
 - *Phase III*: Use the `schnauzer` library to enrich the graph initially built by the `can_simulator` with information necessary for the visualisation and display it.
 
-#algorithm(
+#listing(
   ```python
   class Coordinator:
     def run(config):

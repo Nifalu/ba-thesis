@@ -1,4 +1,4 @@
-#import "@preview/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, algorithm
+#import "@local/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, listing
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge, shapes
 
 == Project Structure:

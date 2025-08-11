@@ -1,4 +1,4 @@
-#import "@preview/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, algorithm
+#import "@local/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, listing
 
 === ComponentAnalyser
 
@@ -20,7 +20,7 @@ The ComponentAnalyser is now ready for analysis. The `analyse()` method contains
 12. *Write to the bus:* Write the parsed output to the bus.
 
 
-#algorithm(
+#listing(
   ```python
   class ComponentAnalyser:
     angr_project = angr.Project()
@@ -37,7 +37,7 @@ The ComponentAnalyser is now ready for analysis. The `analyse()` method contains
 )
 
 
-#algorithm(
+#listing(
   ```python
   class ComponentAnalyser:
 

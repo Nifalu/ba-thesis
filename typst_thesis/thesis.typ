@@ -1,4 +1,5 @@
-#import "@preview/dmi-basilea-thesis:0.1.1": *
+// #import "@local/dmi-basilea-thesis:0.1.1": *
+#import "@local/dmi-basilea-thesis:0.1.1": *
 // or for local testing:
 // #import "../src/main.typ": *  // This is for local testing
 

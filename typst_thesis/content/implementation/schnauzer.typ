@@ -1,4 +1,4 @@
-#import "@preview/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, algorithm
+#import "@local/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, listing
 
 === Schnauzer Visualisation Library <schnauzer>
 

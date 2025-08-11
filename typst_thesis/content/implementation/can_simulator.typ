@@ -1,4 +1,4 @@
-#import "@preview/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, algorithm
+#import "@local/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, listing
 
 === The can_simulator Package <can_simulator>
 This package contains the functionality required to simulate and model CAN bus communication. Unlike real Controller Area Networks, messages remain on the bus indefinitely. Read more about the effects of this in @technical-limitations
@@ -16,7 +16,7 @@ The main function is the `write()` function, which is used to write messages to 
 4. If the message is new (#ie. not already in the bus), update the list that keeps track of how many messages of each type are currently in the bus. This list is used to determine whether a component can be analysed. Also check if any previously analysed components can consume this message. If so, set the `is_analysed` flag to `False`.
 5. Finally, update the graph by drawing edges from the sources of the consumed messages to the source of the produced message (#ie this component).
 
-#algorithm(
+#listing(
   ```python
   class CANBus:
     components: IndexedSet[Component] = IndexedSet()

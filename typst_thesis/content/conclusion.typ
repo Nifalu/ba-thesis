@@ -1,4 +1,4 @@
-#import "@preview/dmi-basilea-thesis:0.1.0": todo-missing
+#import "@local/dmi-basilea-thesis:0.1.1": todo-missing
 
 = Conclusion <conclusion>
 
