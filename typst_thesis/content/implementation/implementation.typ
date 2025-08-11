@@ -25,7 +25,20 @@ Run in two separate terminals (both inside .venv environment):
 
 Open #link("localhost:8080")[`localhost:8080`] in a browser to see the result
 
-#include("requirements.typ")
+==== General Requirements with MCS Analyser
+#todo-missing("maybe have this only in the readme?")
+For the _MCS Analyser_ to work correctly, it must be aligned with the architecture and the structure of the binaries to be analysed. The _MCS Analyser_ is based on the assumption that components communicate according to a well-defined protocol that matches the one introduced in @methodology .
+
+To increase the readability and interpretability of the resulting graph, optionally:
+- Compile the binaries with debug information to allow the _MCS Analyser_ to retrieve the names of the message types (#eg Engine RPM instead of `0x1234`).
+- Disable compiler optimisations to ensure that the analysed binary is as close to the source code as possible.
+
+Angr does technically support various architectures, _MCS Analyser_ currently only works with x86-64 (AMD64) binaries. Use the following command to simply compile to x86-64 without having to deal with cross compilers, especially on ARM based machines.
+
+```bash
+docker run --platform linux/amd64 --rm -v "$(pwd):/work" -w /work gcc:latest gcc -g -O0 "$input_file" -o "$output_file"
+```
+
 #include("structure.typ")
 
 == How it works
