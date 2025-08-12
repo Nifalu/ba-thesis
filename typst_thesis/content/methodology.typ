@@ -3,6 +3,8 @@
 
 = Methodology <methodology>
 
+#todo-missing("change title")
+
 In a MCS, each component can work as intended and produce valid outputs, but a dangerous combination of valid states may result in system failure. As the number of possible states in an MCS system increases exponentially with every added component, it becomes impossible for humans to grasp them all. This chapter presents an approach on how a MCS can be better understood by analysing the communication paths withn the MCS and visualising it in a human readable way.
 
 Before conducting a (security) analysis on a system, one has to decide between three main analysing types:
@@ -66,7 +68,7 @@ First, all outputs produced in the information retrieval phase are placed in a b
     ```
 ]
 
-Once it is known what each component consumes and produces, an initial simulation order can be determined. Components that consume only a single input cannot read both a message ID and data, and are therefore not expected to read from the bus. These components are marked as 'analysed'.
+Once it is known what each component consumes and produces, an initial simulation order can be determined. Components that consume only a single input cannot read both a message ID and data, and are therefore not expected to read from the bus. These components are marked as _analysed_.
 
 #listing(caption: [Marking single-input components as analysed], label: <lst:th-mark-leafs>)[
   #codly(
@@ -152,3 +154,7 @@ The buffer now contains all the messages produced during the simulation phase, e
         G.add_edge(msg_source, c, msg)
     ```
 ]
+
+
+#todo-missing("Add graph screenshots")
+#todo-missing("Explain functionalities of the graph, what can be seen")

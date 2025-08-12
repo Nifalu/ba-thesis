@@ -43,6 +43,10 @@ A potential extended analysis could look like this:
   caption: "Sketch of a possible extension of the MCS Analyser"
 )
 
+== Significance of the graph visualisation.
+#todo-missing("what information can be derived from the grpah?, how can it be used?")
+
+
 == Technical limitations <technical-limitations>
 
 *Path explosion* is a common problem in symbolic execution. The binaries for simple components, such as sensors or actuators, are usually rather small, so the number of paths is manageable. However, this is merely an excuse, as _MCS Analyser_ is not immune to this problem. When exploring the binary from the entry point to an output function, the _MCS Analyser_ uses a `CFGEmulated` to avoid paths that do not lead to an output function. It essentially just traverses the graph from input to output, ignoring all other paths. This dramatically improves the performance of the analysis, as depending on the number of possible inputs, a single binary might be analysed many times. However, to obtain the `CFGEmulated`, *Angr* must symbolically execute the entire binary at the outset. This is only done once per binary and then cached, but it will inevitably lead to path explosion issues if the binary is too complex.

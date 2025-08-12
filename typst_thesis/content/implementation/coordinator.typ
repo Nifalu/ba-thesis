@@ -6,27 +6,7 @@ The _Coordinator_ is the entry point of the _MCS Analyser_. Before that, there i
 
 The _Coordinator_ is responsible for the overall flow of the analysis, which takes place in three phases, as described in @phase1. Here a phase 0 is added which initialises and prepares the different classes.
 
-- *Phase 0:* The _Coordinator_ starts by initialising the _CANBus_. During this step, the config file is parsed and a _Component_ instance is created for each component defined in the config file. Then it tries to extract the names of the message ids from a single binary and stores them together with other metadata inside the _Config_ singleton. Unlike described in @methodology, here the graph is created and adjusted as soon as the information is available.
-
-#listing(caption: [Simplified view of phase 0, the `CANBus.init()` function])[
-  #codly(highlights:(
-    (line: 5, start: 5, end: 28),
-    (line: 7, start: 5, end: 37),
-    (line: 9, start: 17, end: 51),
-    ))
-    ```python
-    def init(config_path):
-      data = json.load(config_path)
-      symbols = None
-      for c in data['components']
-        component = Component(c)
-        cid = cls.components.add(component)
-        MCSGraph.add_component(component)
-        if not symbols:
-          symbols = utils.extract_msg_id_map(component)
-      Config.init(data, symbols)
-    ```
-]
+- *Phase 0:* The _Coordinator_ starts by initialising the _CANBus_. See @im-canbus
 
 - *Phase I*: Symbolically execute all components and provide unconstrained input. Observe and retrieve the constraints placed in those inputs to retrieve information on what the component will consume. Similarly with what it will produce. The algorithm in @th-analysing-loop can be improved by caching the _ComponentAnalyser_ instances and retrieving the input/ouput addresses, entry states, the CFG and the angr project only once per component. Last, components that consume only one message are marked as _analysed_ immediately. They don't follow the bus protocol in how they consume messages and are theerfore seen as producers of messages (#eg a sensor reading measurements and sending them to the bus).
 
@@ -47,7 +27,7 @@ The _Coordinator_ is responsible for the overall flow of the analysis, which tak
     ```
 ]
 
-As seen in @structure and looked at in more detail in @canalyser, the _ComponentAnalyser_ directly updates the _CANBus_ whenever it found a new message. Therefore by just running the _ComponentAnalyser_ in the first phase, the _CANBus_ is already populated with all messages that were produced by the components given unconstrained inputs. 
+As seen in @structure and looked at in more detail in @canalyser, the _ComponentAnalyser_ directly updates the _CANBus_ whenever it found a new message. Therefore by just running the _ComponentAnalyser_ in the first phase, the _CANBus_ is already populated with all messages that were produced by the components given unconstrained inputs.
 
 - *Phase II*: Symbolically execute all components which are not marked as _analysed_ a second time. This time with the inputs available in the _CANBus_. The `analyse()` method will set components as _not analysed_ if they can consume a message that was just produced. Therefore, components can potentially be analysed many times before the algorithm terminates. Note that the `generate_input_combination()` function @th-analysing-loop is moved inside the `analyse()` method.
 
@@ -74,6 +54,4 @@ As seen in @structure and looked at in more detail in @canalyser, the _Component
 ]
 
 
-- *Phase III*: Use the `schnauzer` library to enrich the graph initially built by the `can_simulator` with information necessary for the visualisation and display it.
-
-
+- *Phase III*: The _MCSGraph_ is already populated with nodes and edges during the first two phases. In this phase, the _MCSGraph_ is finalised by adding colors for the different component and message types. Then the _MCSGraph_ is visualised using the _schnauzer_ library.
