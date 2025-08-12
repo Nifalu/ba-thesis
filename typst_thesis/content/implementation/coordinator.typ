@@ -1,46 +1,68 @@
-#import "@local/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, listing
+#import "@local/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, listing, codly
 
 === The Coordinator
 
-The `Coordinator` is the entry point of the _MCS Analyser_. Before that, there is only `main.py`, which is responsible for parsing command line arguments and starting the coordinator.
+The _Coordinator_ is the entry point of the _MCS Analyser_. Before that, there is only _main_, which is responsible for parsing command line arguments and starting the coordinator.
 
-The `Coordinator` is responsible for the overall flow of the analysis, which takes place in three phases, as discussed earlier.
+The _Coordinator_ is responsible for the overall flow of the analysis, which takes place in three phases, as described in @phase1. Here a phase 0 is added which initialises and prepares the different classes.
 
-- *Phase I*: Use the `can_simulator` to initialise the CAN bus and analyse all components with unconstrained inputs in order to retrieve information. (See @phase1)
+- *Phase 0:* The _Coordinator_ starts by initialising the _CANBus_. During this step, the config file is parsed and a _Component_ instance is created for each component defined in the config file. Then it tries to extract the names of the message ids from a single binary and stores them together with other metadata inside the _Config_ singleton. Unlike described in @methodology, here the graph is created and adjusted as soon as the information is available.
 
-- *Phase II*: Analyse the components using the `ComponentAnalyser`, ensuring that all required messages are available before starting the analysis.
+#listing(caption: [Simplified view of phase 0, the `CANBus.init()` function])[
+  #codly(highlights:(
+    (line: 5, start: 5, end: 28),
+    (line: 7, start: 5, end: 37),
+    (line: 9, start: 17, end: 51),
+    ))
+    ```python
+    def init(config_path):
+      data = json.load(config_path)
+      symbols = None
+      for c in data['components']
+        component = Component(c)
+        cid = cls.components.add(component)
+        MCSGraph.add_component(component)
+        if not symbols:
+          symbols = utils.extract_msg_id_map(component)
+      Config.init(data, symbols)
+    ```
+]
 
-- *Phase III*: Use the `schnauzer` library to enrich the graph initially built by the `can_simulator` with information necessary for the visualisation and display it.
+- *Phase I*: Symbolically execute all components and provide unconstrained input. Observe and retrieve the constraints placed in those inputs to retrieve information on what the component will consume. Similarly with what it will produce. The algorithm in @th-analysing-loop can be improved by caching the _ComponentAnalyser_ instances and retrieving the input/ouput addresses, entry states, the CFG and the angr project only once per component. Last, components that consume only one message are marked as _analysed_ immediately. They don't follow the bus protocol in how they consume messages and are theerfore seen as producers of messages (#eg a sensor reading measurements and sending them to the bus).
 
-#listing(
+#listing(caption: [Simplified view of phase I of the `Coordinator`])[
+  #codly(highlights:(
+    (line: 2, start: 3, end: 20),
+    (line: 5, start: 5, end: 40),
+  ))
+    ```python
+    with CANBus as bus:
+      analyser_dict = {} # analyser cache
+      for component in bus.components:
+        mcsa = ComponentAnalyser(component)
+        analyser_dict[component.name] = mcsa
+        mcsa.analyse()
+        if not component.consumed_ids:
+          component._is_analysed = True
+    ```
+]
+
+As seen in @structure and looked at in more detail in @canalyser, the _ComponentAnalyser_ directly updates the _CANBus_ whenever it found a new message. Therefore by just running the _ComponentAnalyser_ in the first phase, the _CANBus_ is already populated with all messages that were produced by the components given unconstrained inputs. 
+
+- *Phase II*: Symbolically execute all components which are not marked as _analysed_ a second time. This time with the inputs available in the _CANBus_. The `analyse()` method will set components as _not analysed_ if they can consume a message that was just produced. Therefore, components can potentially be analysed many times before the algorithm terminates. Note that the `generate_input_combination()` function @th-analysing-loop is moved inside the `analyse()` method.
+
+#listing(caption: [Simplified view of phase II of the `Coordinator`])[
   ```python
-  class Coordinator:
-    def run(config):
-      # Phase I
-      with CANBus() as bus: # This initialises the CAN bus
-        analyser_cache = {}
-        for c in bus.components:
-          analyser = ComponentAnalyser(c)
-          analyser_cache[c.name] = analyser
-          analyser.analyse()
-        for c in bus.components:
-          if not c.consumed_ids:
-            c.is_analysed = True
-
-        # Phase II
-        while True:
-          made_progress = False
-          for c in bus.components:
-            if not c.is_analysed and can_analyse(c, bus):
-              analyser = analyser_cache[c.name]
-              analyser.analyse()
-              c.is_analysed = True
-              made_progress = True
+    while True:
+      made_progress = False
+      for c in bus.components:
+        if not c.is_analysed and can_analyse(c, bus):
+          mcsa = analyser_cache[c.name]
+          mcsa.analyse()
+          c.is_analysed = True
+          made_progress = True
           if not made_progress:
             break
-
-        # Phase III
-        MCSGraph.visualise()
 
     def can_analyse(c, bus):
       # The bus should have enough msgs of the types the component consumes
@@ -48,6 +70,10 @@ The `Coordinator` is responsible for the overall flow of the analysis, which tak
         # divide by 2 because one message holds two inputs (id and data)
         return False
       return True
-    ```,
-  caption: [Simplified view of the `Coordinator` class]
-)
+    ```
+]
+
+
+- *Phase III*: Use the `schnauzer` library to enrich the graph initially built by the `can_simulator` with information necessary for the visualisation and display it.
+
+

@@ -49,4 +49,4 @@ The figure below provides a high level view on _MCS Analyser_ and highlights the
   ),
   90%,
   )
-]
+]<structure>

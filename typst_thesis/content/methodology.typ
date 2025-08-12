@@ -55,7 +55,7 @@ First, all outputs produced in the information retrieval phase are placed in a b
 
 #listing(caption: [Retrieving information by symbolically executing all components with unconstrained inputs], label: <lst:th-info-ret>)[
   #codly(highlights:(
-    (line: 4, start: 52, end: 69),
+    (line: 4, start: 50, end: 67),
     ))
     ```python
     buffer = []
@@ -96,7 +96,7 @@ If one is found, all possible combinations of inputs are calculated from all inp
 
 Next, check if any previously analysed component could potentially consume each produced message. If so, mark that component as _not analysed_. Repeat the second step until all components are _analysed_.
 
-#listing(caption: [Loop through the components until all are analysed], label: <lst:th-analysing-loop>)[
+#listing(caption: [Loop through the components until all are analysed], label: <th-analysing-loop>)[
   #codly(
     offset: 11,
     highlights:(
