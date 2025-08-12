@@ -87,11 +87,9 @@ At this point, the symbolic execution has been performed. What remains is the `c
       result = self.output_checker.check(state, self.output_addrs)
       if result:
         self.c.update_max_expected_inputs(InputTracker.max_inputs)
-        if result.type.is_symbolic:
-          logger.warning(f"{c} produced symbolic message type: {result}")
-        else:
+        if result.type.is_symbolic: # throw a warning
+        else: 
           self.c.add_production(result.type.concrete_value)
-
       CANBus.write(result, InputTracker.get_consumed_msgs())
     ```
 ]

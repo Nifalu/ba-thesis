@@ -96,6 +96,7 @@ In order to analyse both branches of a given condition, symbolic execution store
         else
           printf("World")
       return 0
+    }
     ```
   ],
 caption: "Simple Symbolic Execution"

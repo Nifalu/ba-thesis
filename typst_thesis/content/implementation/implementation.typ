@@ -26,7 +26,6 @@ Run in two separate terminals (both inside .venv environment):
 Open #link("localhost:8080")[`localhost:8080`] in a browser to see the result
 
 ==== General Requirements with MCS Analyser
-#todo-missing("maybe have this only in the readme?")
 For the _MCS Analyser_ to work correctly, it must be aligned with the architecture and the structure of the binaries to be analysed. The _MCS Analyser_ is based on the assumption that components communicate according to a well-defined protocol that matches the one introduced in @methodology .
 
 To increase the readability and interpretability of the resulting graph, optionally:

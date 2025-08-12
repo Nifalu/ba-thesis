@@ -2,7 +2,7 @@
 
 _MCS Analyser_ is a first step towards a more automated and reliable way of analysing multi-component systems. It is useful for displaying the actual communication paths between components, as opposed to the paths that a team of developers might expect. However, there is scope to improve and extend the features of the _MCS Analyser_.
 
-== Technical Improvements
+== Technical Improvements <technical-improvements>
 Currently, _MCS Analyser_ has some technical limitations in terms of how it analyses binaries and retrieves information. These limitations include:
 
 - *Path explosion:* currently, _MCS Analyser_ initially symbolically executes the entire binary to retrieve a `CFGEmulated`, which is then used in subsequent analysis runs to avoid paths that do not lead to an output function. While this approach dramatically improves performance, the initial symbolic execution is still expensive and prone to path explosion. A significant improvement would be to find a way to avoid full symbolic execution of the binary while still benefiting from avoiding paths in later analysis runs, especially for larger binaries.
@@ -14,7 +14,7 @@ Currently, _MCS Analyser_ has some technical limitations in terms of how it anal
 == Feature Extensions
 As mentioned in the evaluation and discussion, _MCS Analyser_ could be extended with additional features to make it more useful in real-world scenarios. Potential extensions are not limited to:
 
-- *Path probability calculation:* Currently, _MCS Analyser_ simply displays all communication paths found during the simulation. It would be interesting to calculate the probability of a certain path being taken.
+- *Path probability calculation:* Currently, _MCS Analyser_ simply displays all communications found during the simulation. It would be interesting to calculate the probability of a certain path being taken.
 
 - *Bug and Vulnerability Detection:* It would be useful to have an indication of how prone a certain component is to bugs or vulnerabilities. By extending the analysis steps, it would be possible to check for common patterns that lead to bugs or vulnerabilities. This could also be combined with path probability calculation to determine the likelihood of a component or path being exploited by an attacker.
 

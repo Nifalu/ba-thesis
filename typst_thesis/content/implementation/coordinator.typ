@@ -6,7 +6,7 @@ The _Coordinator_ is the entry point of the _MCS Analyser_. Before that, there i
 
 The _Coordinator_ is responsible for the overall flow of the analysis, which takes place in three phases, as described in @phase1. Here a phase 0 is added which initialises and prepares the different classes.
 
-- *Phase 0:* The _Coordinator_ starts by initialising the _CANBus_. See @im-canbus
+- *Phase 0:* The _Coordinator_ starts by initialising the _CANBus_. See @im-canbus.
 
 - *Phase I*: Symbolically execute all components and provide unconstrained input. Observe and retrieve the constraints placed in those inputs to retrieve information on what the component will consume. Similarly with what it will produce. The algorithm in @th-analysing-loop can be improved by caching the _ComponentAnalyser_ instances and retrieving the input/ouput addresses, entry states, the CFG and the angr project only once per component. Last, components that consume only one message are marked as _analysed_ immediately. They don't follow the bus protocol in how they consume messages and are theerfore seen as producers of messages (#eg a sensor reading measurements and sending them to the bus).
 
@@ -29,7 +29,7 @@ The _Coordinator_ is responsible for the overall flow of the analysis, which tak
 
 As seen in @structure and looked at in more detail in @canalyser, the _ComponentAnalyser_ directly updates the _CANBus_ whenever it found a new message. Therefore by just running the _ComponentAnalyser_ in the first phase, the _CANBus_ is already populated with all messages that were produced by the components given unconstrained inputs.
 
-- *Phase II*: Symbolically execute all components which are not marked as _analysed_ a second time. This time with the inputs available in the _CANBus_. The `analyse()` method will set components as _not analysed_ if they can consume a message that was just produced. Therefore, components can potentially be analysed many times before the algorithm terminates. Note that the `generate_input_combination()` function @th-analysing-loop is moved inside the `analyse()` method.
+- *Phase II*: Symbolically execute all components which are not marked as _analysed_ a second time. This time with the inputs available in the _CANBus_. Components can be set to _not analysed_ during the analysis step described in @im-canbuswrite4. Therefore, components can potentially be analysed many times before the algorithm terminates. Note that the `generate_input_combination()` function @th-analysing-loop is moved inside the `analyse()` method.
 
 #listing(caption: [Simplified view of phase II of the `Coordinator`])[
   ```python
