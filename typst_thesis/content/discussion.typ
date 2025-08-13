@@ -41,9 +41,40 @@ A potential extended analysis could look like this:
   caption: "Sketch of a possible extension of the MCS Analyser"
 )
 
-== Significance of the graph visualisation.
-#todo-missing("what information can be derived from the grpah?, how can it be used?")
+== Significance of the graph visualisation. <graph-discussion>
 
+Storing the communication paths in a graph structure makes sense because it allows for a intuitive way of representing the real world objects and their relationships in code. Visualising the graph for the user is a natural next step as it often helps to understand complex relationships and dependencies, in this case, communication paths more easily. 
+
+  #columns(2)[
+    #figure(
+      image("../img/tracing-a.png", width:100%),
+      caption: [Navigation System Output _A_ with origin traces]
+    ) <fig:tracing-a>
+  #colbreak()
+    #figure(
+      image("../img/tracing-b.png", width:100%),
+      caption: [Navigation System Output _B_ with origin traces]
+    ) <fig:tracing-b>
+  ]
+
+_Schnauzer_ provides an interactive way to explore the graph, allowing users to simply click on edges to highlight the origin of a message. Other features include the search for specific attributes, nodes, edges and the ability to hide the communication paths produced by running components with unconstrained inputs. This is particularly useful to check whether a component would communicate differently if previous components were malfunctioning, providing unconstrained or at least unexpected inputs.
+
+As discussed in the expert interview, the visualisation allows user to see how the actual instead of the intended communication paths. Someone could question if the _Terrain Warning System_ should really be doing its calculations based on the _Airspeed_ or if someone made a typo and it should actually be using the _Altitude_ instead.
+
+#figure(
+  image("../img/terrain.png", width:70%),
+  caption: [Detecting Programming Errors.]
+) <fig:terrain>
+
+
+The visualisation can also be used to detect potential single points of failure, such as the _MCAS_ controlling the trim (hydraulics) based solely on the _Angle of Attack_ sensor. The example provided in this thesis might not be ideal to highlight this, but generally speaking, such a visualisation can be very helpful to understand based on which inputs a certain action can be performed.
+
+#figure(
+  image("../img/tracing-closeup.png", width:70%),
+  caption: [Detecting potential single points of failure.]
+) <fig:closeup>
+
+By analysing the actual constraints on the communication paths (displayed in the sidebar), one could theoretically also determine whether a component is communicating as intended. However those constraints are usually not very readable for humans. This is where a simulator could help, simulating the effects of those constraints on the aircraft, essentially translating the constraints into a more human-readable form.
 
 == Technical limitations <technical-limitations>
 
@@ -58,4 +89,3 @@ The _MCS Analyser_ provides a solid foundation for analysing the communication p
 - *Protocol violation*: the _MCS Analyser_ assumes that the components communicate according to a well-defined protocol. If this is not the case, the analyser will throw an error or warning when attempting to parse an irregular message. However, if a component sends or receives a message in an unexpected way, the analyser will most likely not simulate this scenario and therefore not detect such anomalies.
 
 - *Timings and time-based attacks:* In a real system, messages are not stored on the bus. If necessary, individual components have buffers to store incoming messages until they are processed. Sophisticated priority mechanisms such as _CSMA/CR_ @csma1 @csma2 are usually used to detect, avoid or resolve collisions and ensure that high-priority messages are processed first. The _MCS Analyser_ does not support such mechanisms and therefore does not detect anything related to message timings or priorities.
-

@@ -29,7 +29,7 @@ The _ComponentAnalyser_ is responsible for the symbolic execution of a single co
 
 2. The `CFGEmulated()` call creates the CFG for the component. This operation symbolically executes the entire binary and is therefore computationally expensive. Read the discussion to this in @technical-limitations and @technical-improvements.
 
-3. The `find_addrs()` function statically determines the addresses of the passed function names in the binary. On the otherhand, the `get_sim_states()` function symbolically executes towards the passed addresses and returns the states right before the addresses are called.
+3. The `find_addrs()` function statically determines the addresses of the passed function names in the binary. On the other hand, the `get_sim_states()` function symbolically executes towards the passed addresses and returns the states right before the addresses are called.
 
 4. The `setup_output_checker()` function assigns the correct parsers for the output addresses.
 
@@ -37,7 +37,7 @@ The _ComponentAnalyser_ is responsible for the symbolic execution of a single co
 
 The _ComponentAnalyser_ is now initialised and ready to perform analysis runs on the component. By caching the _ComponentAnalyser_ instances, all the information retrieved during this initialisation step can be reused in consecutive analysis runs. Next up is the `analyse()` method which performs the actual symbolic execution and analysis of the component.
 
-#listing(caption: [Analysing a single component.], label: <im-canalyser2>)[
+#listing(caption: [Simplified analysing a single component.], label: <im-canalyser2>)[
   #codly(offset: 12, highlights:(
     (line: 3, start: 41, end: 60),
     (line: 4, start: 14, end: 48),
@@ -88,7 +88,7 @@ At this point, the symbolic execution has been performed. What remains is the `c
       if result:
         self.c.update_max_expected_inputs(InputTracker.max_inputs)
         if result.type.is_symbolic: # throw a warning
-        else: 
+        else:
           self.c.add_production(result.type.concrete_value)
       CANBus.write(result, InputTracker.get_consumed_msgs())
     ```

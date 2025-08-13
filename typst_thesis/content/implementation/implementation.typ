@@ -4,7 +4,7 @@
 
 This chapter focuses on the practical implementation of the approach to analysing a Multi Component System that was introduced previously. We have developed a tool called #link("https://github.com/Nifalu/mcs-analyser")[_*mcs-analyser*_]#footnote("https://github.com/Nifalu/mcs-analyser"), which uses the binary analysis platform #link("https://angr.io/")[*angr*] for the analysis part, as well as a self-written visualisation library #link("https://github.com/Nifalu/schnauzer")[*schnauzer*]#footnote("https://github.com/Nifalu/schnauzer") to display the resulting graph interactively. _MCS Analyser_ is public and open-source, and has been designed with expandablity in mind.
 
-==== Links
+==== Links <links>
 Tool developed in this thesis:
 - *mcs-analyser:* #link("https://github.com/Nifalu/mcs-analyser")
 Dependencies:

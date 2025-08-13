@@ -1,13 +1,11 @@
 #import "@local/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, ie, listing, codly
 
 
-=== The can_simulator Package <can_simulator>
-This package contains the functionality required to simulate and model CAN bus communication. Unlike real Controller Area Networks, messages remain on the bus indefinitely. Read more about the effects of this in @technical-limitations #todo-missing("adjust this reference")
+=== The CANBus <can_simulator>
 
+The CANBus is part of the `can_simulator` package which provides the necessary functionalities to simulate and model CAN communication.
 
-==== CANBus <canbus>
-
-The `CANBus` is the core of the _can_simulator_ package and represents the simulated CAN bus.
+Unlike real Controller Area Networks, messages remain on the bus indefinitely. This eliminates time based analysis and is discussed in @technical-limitations
 
 During the initialisation, the config file is parsed and a _Component_ instance is created for each component defined in the config file. Then it tries to extract the names of the message ids from a single binary and stores them together with other metadata inside the `Config` singleton. Unlike described in @methodology, here the graph is created and adjusted as soon as the information is available.
 

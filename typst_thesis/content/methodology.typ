@@ -1,9 +1,7 @@
 #import "@local/dmi-basilea-thesis:0.1.1": todo-missing, definition, eg, listing, codly
 #import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge, shapes
 
-= Methodology <methodology>
-
-#todo-missing("change title")
+= Analysing Communication Paths <methodology>
 
 In a MCS, each component can work as intended and produce valid outputs, but a dangerous combination of valid states may result in system failure. As the number of possible states in an MCS system increases exponentially with every added component, it becomes impossible for humans to grasp them all. This chapter presents an approach on how a MCS can be better understood by analysing the communication paths withn the MCS and visualising it in a human readable way.
 
@@ -155,6 +153,11 @@ The buffer now contains all the messages produced during the simulation phase, e
     ```
 ]
 
+The resulting graph will look something like this:
 
-#todo-missing("Add graph screenshots")
-#todo-missing("Explain functionalities of the graph, what can be seen")
+#figure(
+  image("../img/plain-graph.png", width:95%),
+  caption: [The resulting graph, visualised by `schnauzer` (see @implementation).]
+) <fig:plaingraph>
+
+What information can be read from the graph depends heavily on the functionalities provided by the graph rendering program. At this point, all information is theoretically available and can be used to track, trace and understand the communication paths using the graph structure. In @graph-discussion we will be discussing the benefits of this visualisation technique and how it can be used in practise.

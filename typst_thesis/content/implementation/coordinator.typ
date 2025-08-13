@@ -8,7 +8,7 @@ The _Coordinator_ is responsible for the overall flow of the analysis, which tak
 
 - *Phase 0:* The _Coordinator_ starts by initialising the _CANBus_. See @im-canbus.
 
-- *Phase I*: Symbolically execute all components and provide unconstrained input. Observe and retrieve the constraints placed in those inputs to retrieve information on what the component will consume. Similarly with what it will produce. The algorithm in @th-analysing-loop can be improved by caching the _ComponentAnalyser_ instances and retrieving the input/ouput addresses, entry states, the CFG and the angr project only once per component. Last, components that consume only one message are marked as _analysed_ immediately. They don't follow the bus protocol in how they consume messages and are theerfore seen as producers of messages (#eg a sensor reading measurements and sending them to the bus).
+- *Phase I*: Symbolically execute all components and provide unconstrained input. Observe and retrieve the constraints placed in those inputs to retrieve information on what the component will consume. Similarly with what it will produce. The algorithm in @th-analysing-loop can be improved by caching the _ComponentAnalyser_ instances and retrieving the input/output addresses, entry states, the CFG and the angr project only once per component. Last, components that consume only one message are marked as _analysed_ immediately. They don't follow the bus protocol in how they consume messages and are theerfore seen as producers of messages (#eg a sensor reading measurements and sending them to the bus).
 
 #listing(caption: [Simplified view of phase I of the `Coordinator`])[
   #codly(highlights:(
@@ -45,9 +45,7 @@ As seen in @structure and looked at in more detail in @canalyser, the _Component
             break
 
     def can_analyse(c, bus):
-      # The bus should have enough msgs of the types the component consumes
       if c.max_expected_inputs // 2 > bus.num_msgs_of_types(c.consumed_ids):
-        # divide by 2 because one message holds two inputs (id and data)
         return False
       return True
     ```
